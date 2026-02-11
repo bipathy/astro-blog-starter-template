@@ -1,7 +1,5 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
@@ -11,40 +9,56 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header />
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<h1>UnityDruid</h1>
+			<a href="/blog" class="enter-btn">enter</a>
 		</main>
-		<Footer />
 	</body>
 </html>
+
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		background-color: #f5f0e8;
+		min-height: 100vh;
+	}
+
+	main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		min-height: 100vh;
+		padding: 0;
+		width: 100%;
+		max-width: 100%;
+	}
+
+	h1 {
+		font-family: "Garamond", "EB Garamond", "Georgia", serif;
+		font-size: clamp(3rem, 10vw, 7rem);
+		font-weight: 400;
+		letter-spacing: 0.05em;
+		color: #2c2a26;
+		margin: 0 0 1.5rem 0;
+		text-align: center;
+	}
+
+	.enter-btn {
+		font-family: "Georgia", "Times New Roman", serif;
+		font-size: 1.15rem;
+		letter-spacing: 0.15em;
+		color: #5c574e;
+		text-decoration: none;
+		border: 1px solid #b8b1a4;
+		padding: 0.6em 2.5em;
+		transition: all 0.3s ease;
+	}
+
+	.enter-btn:hover {
+		color: #2c2a26;
+		border-color: #2c2a26;
+		background-color: rgba(44, 42, 38, 0.05);
+	}
+</style>
