@@ -25,3 +25,85 @@ Work Log:
 - `src/components/Header.astro`
 - `src/components/Footer.astro`
 - `src/pages/index.astro`
+
+## 2026-02-10 - Branding & Theme Update
+
+### 1. Renamed site title to "UnityDruid"
+- **consts.ts**: Changed `SITE_TITLE` from `"Astro Blog"` to `"UnityDruid"`. This propagates to the header nav, `<title>` tags, RSS feed, and all pages referencing `SITE_TITLE`.
+
+### 2. Converted site to serif fonts + warm cream palette
+- **global.css**: Complete theme overhaul:
+  - Body font → `Georgia, Garamond, Times New Roman, serif`
+  - Headings → `Garamond, EB Garamond, Georgia, serif`
+  - Background → warm cream `#f5f0e8` (replacing gray gradient to white)
+  - CSS variables retuned to warm earth tones (accent: `#8b6914`, grays → warm browns)
+  - Removed Atkinson font-face declarations (no longer used)
+- **Header.astro**: Background changed from `white` to `#f5f0e8` (cream).
+- **Footer.astro**: Background changed from gray gradient to `#ece5d8` (deeper cream).
+- **blog/index.astro**: Post titles use Garamond; dates use Georgia italic — matching the site's serif identity.
+
+### Files modified:
+- `src/consts.ts`
+- `src/styles/global.css`
+- `src/components/Header.astro`
+- `src/components/Footer.astro`
+- `src/pages/blog/index.astro`
+
+====================================================================================================
+Sitemap:
+====================================================================================================
+
+```
+UnityDruid
+│
+├── / .......................... Landing / Splash Page
+│   │                          "UnityDruid" centered in Garamond
+│   │                          Warm cream background (#f5f0e8)
+│   │                          [enter] button → /blog
+│   │                          No header/footer (standalone)
+│   │
+│   └── /blog ................. Blog Listing Page
+│       │                      Grid of post cards (image + title + date)
+│       │                      Header nav: Home | Blog | About
+│       │                      Footer: © UnityDruid
+│       │
+│       ├── /blog/first-post .. Blog Post (Markdown)
+│       ├── /blog/second-post . Blog Post (Markdown)
+│       ├── /blog/third-post .. Blog Post (Markdown)
+│       ├── /blog/markdown-style-guide  Blog Post (Markdown)
+│       └── /blog/using-mdx .. Blog Post (MDX)
+│
+├── /about .................... About Page
+│                              Uses BlogPost layout
+│                              Header + Footer
+│
+└── /rss.xml .................. RSS Feed
+                               Auto-generated from blog posts
+```
+
+### Component & Layout Map:
+
+```
+src/
+├── components/
+│   ├── BaseHead.astro ........ <head> metadata, imports global.css
+│   ├── Header.astro .......... Site nav (Home | Blog | About)
+│   ├── Footer.astro .......... © UnityDruid
+│   ├── HeaderLink.astro ...... Nav link with active state
+│   └── FormattedDate.astro ... Date display helper
+│
+├── layouts/
+│   └── BlogPost.astro ........ Blog post layout (header + hero + prose + footer)
+│
+├── pages/
+│   ├── index.astro ........... Splash landing page (standalone)
+│   ├── about.astro ........... About page (uses BlogPost layout)
+│   ├── blog/
+│   │   ├── index.astro ....... Blog listing grid
+│   │   └── [...slug].astro ... Dynamic blog post route
+│   └── rss.xml.js ............ RSS feed generator
+│
+├── content/blog/ ............. Blog post source files (MD/MDX)
+├── styles/global.css ......... Global theme: serif fonts, cream palette
+└── consts.ts ................. SITE_TITLE="UnityDruid", SITE_DESCRIPTION
+```

@@ -56,14 +56,17 @@ const posts = (await getCollection('blog')).sort(
 				margin: 0;
 				color: rgb(var(--black));
 				line-height: 1;
+				font-family: "Garamond", "EB Garamond", "Georgia", serif;
 			}
 			.date {
 				margin: 0;
 				color: rgb(var(--gray));
+				font-family: "Georgia", "Times New Roman", serif;
+				font-style: italic;
 			}
 			ul li a:hover h4,
 			ul li a:hover .date {
-				color: rgb(var(--accent));
+				color: var(--accent);
 			}
 			ul a:hover img {
 				box-shadow: var(--box-shadow);
