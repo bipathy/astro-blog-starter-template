@@ -1,0 +1,66 @@
+---
+export const prerender = false;
+
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+const user = Astro.locals.user;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="Private" description="Private area" />
+  </head>
+  <body>
+    <Header />
+    <div class="auth-banner">
+      Logged in as <strong>{user?.username}</strong>
+      <a href="/logout">Logout</a>
+    </div>
+    <main>
+      <h1>Private Area</h1>
+      <p>Welcome to the private section of UnityDruid.</p>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .auth-banner {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 0.85rem;
+    color: #5c574e;
+    background: #ece5d8;
+    padding: 0.5em 1em;
+    text-align: right;
+    border-bottom: 1px solid #d5cdbf;
+  }
+
+  .auth-banner a {
+    color: #8b6914;
+    margin-left: 1em;
+    text-decoration: none;
+  }
+
+  .auth-banner a:hover {
+    color: #5c4510;
+    text-decoration: underline;
+  }
+
+  main {
+    width: 720px;
+    max-width: calc(100% - 2em);
+    margin: auto;
+    padding: 3em 1em;
+  }
+
+  h1 {
+    font-family: "Garamond", "EB Garamond", "Georgia", serif;
+  }
+
+  p {
+    font-family: "Georgia", "Times New Roman", serif;
+  }
+</style>

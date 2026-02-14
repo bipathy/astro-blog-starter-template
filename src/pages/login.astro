@@ -1,0 +1,148 @@
+---
+export const prerender = false;
+
+import BaseHead from "../components/BaseHead.astro";
+import { authenticateUser, loginAndSetCookie } from "../lib/auth";
+
+let error = "";
+
+if (Astro.request.method === "POST") {
+  const form = await Astro.request.formData();
+  const username = form.get("username")?.toString() ?? "";
+  const password = form.get("password")?.toString() ?? "";
+  const redirectTo = Astro.url.searchParams.get("redirect") || "/private";
+
+  const valid = await authenticateUser(username, password, Astro.locals.runtime.env);
+
+  if (valid) {
+    await loginAndSetCookie(username, Astro.cookies, Astro.locals.runtime.env);
+    return Astro.redirect(redirectTo);
+  }
+
+  error = "Invalid username or password.";
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title="Login" description="Login to UnityDruid" />
+  </head>
+  <body>
+    <main>
+      <h1>Login</h1>
+      {error && <p class="error">{error}</p>}
+      <form method="POST">
+        <label>
+          Username
+          <input type="text" name="username" required autocomplete="username" />
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" required autocomplete="current-password" />
+        </label>
+        <button type="submit">Log in</button>
+      </form>
+      <a href="/" class="back-link">Back to home</a>
+    </main>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f5f0e8;
+    min-height: 100vh;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-family: "Garamond", "EB Garamond", "Georgia", serif;
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: #2c2a26;
+    margin: 0 0 2rem 0;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 0.95rem;
+    color: #5c574e;
+  }
+
+  input {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 1rem;
+    padding: 0.6em 0.8em;
+    border: 1px solid #b8b1a4;
+    background: #faf8f4;
+    color: #2c2a26;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  input:focus {
+    border-color: #8b6914;
+  }
+
+  button {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    padding: 0.7em 2em;
+    border: 1px solid #b8b1a4;
+    background: transparent;
+    color: #5c574e;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+  }
+
+  button:hover {
+    color: #2c2a26;
+    border-color: #2c2a26;
+    background-color: rgba(44, 42, 38, 0.05);
+  }
+
+  .error {
+    color: #a03030;
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 0.95rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .back-link {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 0.9rem;
+    color: #8b6914;
+    margin-top: 2rem;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: #5c4510;
+  }
+</style>
